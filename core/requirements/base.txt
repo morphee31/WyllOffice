@@ -1,2 +1,4 @@
 fastapi
 robot
+pydantic
+unicorn
