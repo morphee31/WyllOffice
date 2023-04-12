@@ -1,6 +1,12 @@
+image:
+  file: .gitpod.dockerfile
 tasks:
   - name: Install core dependancy
     init: |
       pip install -U pip
       pip install -r core/requirements/dev.txt
+  - name: Start Mongodb
+    init: |
+      mkdir -p /workspace/data
+      mongod --dbpath /workspace/data
 
