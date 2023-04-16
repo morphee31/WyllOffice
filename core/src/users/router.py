@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from models import User
+from schema import User, CreateUser
 
 
 user_router = APIRouter(
@@ -10,7 +10,7 @@ user_router = APIRouter(
 user_router.post(
     path="/"
 )
-async def create_user(user:User):
+async def create_user(user:CreateUser):
     pass
 
 
