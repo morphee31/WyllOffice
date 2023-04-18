@@ -9,4 +9,9 @@ tasks:
     init: |
       mkdir -p /workspace/data
       mongod --dbpath /workspace/data
+  - name: Run Webapp
+    init: |
+      cd Webapp
+      npm install 
+      npm run dev
 
