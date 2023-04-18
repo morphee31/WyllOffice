@@ -5,7 +5,7 @@
 from typing import Optional
 
 from bson import ObjectId
-from pydantic.main import BaseModel
+from pydantic import BaseModel
 
 
 class OID(str):
@@ -23,9 +23,12 @@ class OID(str):
 
 
 class BaseDBModel(BaseModel):
+    id: OID = Field(default_factory=OID, alias="_id")
+
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
+        json_encoders = {ObjectId: str}
 
         @classmethod
         def alias_generator(cls, string: str) -> str:
