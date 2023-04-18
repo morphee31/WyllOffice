@@ -2,7 +2,6 @@
     I preferred using DB postfix for db models.
     It will not be confused with response objects - if you will need anything other than a simple CRUD.
 """
-from typing import Optional
 
 from bson import ObjectId
 from pydantic import BaseModel
