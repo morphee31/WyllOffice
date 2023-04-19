@@ -1,6 +1,6 @@
 from pydantic import EmailStr, SecretStr
 
-from ..models import BaseDBModel
+from models import BaseDBModel
 
 
 class UserModel(BaseDBModel):

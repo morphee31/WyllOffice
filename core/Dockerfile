@@ -4,15 +4,16 @@ LABEL author="Thomas Cassan"
 
 RUN pip install -U pip
 
-COPY ./requirements /tmp/requirements
+COPY . /app
 
-RUN pip install /tmp/requirements/prod.txt
+RUN pip install -r /app/requirements/prod.txt
 
+RUN rm -r /app/requirements/prod.txt
 
 FROM fastapi-requirements
 
-COPY ./src /app
+WORKDIR /app/src
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app","--host=0.0.0.0", "--port=8000"]
+CMD ["uvicorn", "main:app","--host=0.0.0.0", "--port=8000"]

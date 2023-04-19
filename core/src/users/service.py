@@ -1,6 +1,6 @@
 from database import db
 
-from models import UserCreationModel
+from users.models import UserCreationModel
 
 
 async def create_user_service(user: UserCreationModel):
