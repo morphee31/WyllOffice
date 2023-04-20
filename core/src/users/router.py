@@ -18,4 +18,6 @@ async def create_user(user: UserCreationModel):
     path="/{user_id}"
 )
 async def get_user(user_id: str):
-    pass
+    return {"message": f"user_id={user_id}"}
+
+
