@@ -7,6 +7,7 @@ user_router = APIRouter(
     prefix="/user"
 )
 
+
 @user_router.post(
     path="/"
 )
@@ -18,4 +19,27 @@ async def create_user(user: UserCreationModel):
     path="/{user_id}"
 )
 async def get_user(user_id: str):
+    return {"message": f"user_id={user_id}"}
+
+
+@user_router.get(
+    path="/"
+)
+async def list_user():
+    # TODO document why this method is empty
+    pass
+
+
+@user_router.put(
+    path="/{user_id}"
+)
+async def update_user(user_id: str):
+    # TODO document why this method is empty
+    pass
+
+@user_router.delete(
+    path="/{user_id}"
+)
+async def disable_user(user_id: str):
+    # TODO document why this method is empty
     pass
