@@ -5,6 +5,7 @@ tasks:
     init: |
       pip install -U pip
       pip install -r core/requirements/dev.txt
+      export ENV=dev
   - name: Start Mongodb
     init: |
       mkdir -p /workspace/data
@@ -14,4 +15,9 @@ tasks:
       cd Webapp
       npm install 
       npm run dev
+ports:
+  - port: 5000
+    visibility: public
+  - port: 8000
+    visibility: public
 
