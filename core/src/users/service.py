@@ -1,10 +1,15 @@
-from database import db
+from database import get_database
 
-from users.models import UserCreationModel
+from fastapi import Depends
+
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase, AsyncIOMotorCollection
+
+from users.models import CreateUserModel, ReadUserModel
 
 
-async def create_user_service(user: UserCreationModel):
-    result = await db.insert_one(user.dict())
+async def create_user_service(user: CreateUserModel):
+    woop_db = await get_database()
+    result = await woop_db.insert_one(user.dict())
     return result.inserted_id
 
 

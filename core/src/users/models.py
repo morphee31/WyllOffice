@@ -16,11 +16,14 @@ class UserModel(BaseDBModel):
     planning: None | Planning = Field(default=None, description="Day of presence")
 
 
-class CreateUserModel(UserModel):
+class CreateUserModel(BaseModel):
     email: EmailStr
     firstname: str
     lastname: str
+    planning: None | Planning = Field(default=None, description="Day of presence")
+
     # password: SecretStr
+
 
 
 class ReadUserModel(UserModel):

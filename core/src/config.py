@@ -4,7 +4,7 @@ from pydantic import BaseSettings, SecretStr
 
 
 class Config(BaseSettings):
-    app_name: str = "MongoDB API"
+    app_name: str = "MongoDB_API"
     mongo_user: str = None
     mongo_password: SecretStr = None
     mongo_host: str 

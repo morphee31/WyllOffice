@@ -20,7 +20,6 @@ class MongoManager:
             maxPoolSize=10,
             minPoolSize=10)
         self.db: AsyncIOMotorDatabase = self.client.main_db
-        self.db: AsyncIOMotorCollection = self.db[config.app_name]
         logger.info("Connected to MongoDB.")
 
     async def close_database_connection(self):
@@ -30,3 +29,6 @@ class MongoManager:
 
 
 db = MongoManager()
+
+async def get_database() -> AsyncIOMotorCollection:
+    return db.db[config.app_name]

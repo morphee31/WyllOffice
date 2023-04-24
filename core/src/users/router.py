@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from users.models import UserCreationModel
+from users.models import CreateUserModel
 from users.service import create_user_service
 
 user_router = APIRouter(
@@ -11,7 +11,7 @@ user_router = APIRouter(
 @user_router.post(
     path="/"
 )
-async def create_user(user: UserCreationModel):
+async def create_user(user: CreateUserModel):
     await create_user_service(user)
 
 
