@@ -12,7 +12,7 @@ tasks:
       mongod --dbpath /workspace/data
   - name: Run Webapp
     init: |
-      cd Webapp
+      cd webapp
       npm install 
       npm run dev
 ports:
