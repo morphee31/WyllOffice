@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field
-
+from pydantic import BaseModel, Field, EmailStr
+import datetime
 from models import BaseDBModel
+from typing import Literal
 
 
 class Planning(BaseModel):

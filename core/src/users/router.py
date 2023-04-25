@@ -30,11 +30,11 @@ async def get_user(user_id: str):
 
 @user_router.get(
     path="/",
-    response_model=List[FindOneResult]
+    response_model=list[FindOneResult]
 )
 async def list_user():
     find_results = list_users_service()
-    return 
+    return find_results
 
 
 @user_router.put(
