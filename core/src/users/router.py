@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 
 from users.models import CreateUserModel
-from users.service import create_user_service, list_users_service
 from users.schemas import InsertOneResult
-
+from users.service import create_user_service, list_users_service
 
 user_router = APIRouter(
     prefix="/user"
@@ -17,7 +16,6 @@ user_router = APIRouter(
 async def create_user(user: CreateUserModel):
     result: InsertOneResult = await create_user_service(user)
     return result
-
 
 
 @user_router.get(
@@ -40,6 +38,7 @@ async def list_user():
 async def update_user(user_id: str):
     # TODO document why this method is empty
     pass
+
 
 @user_router.delete(
     path="/{user_id}"

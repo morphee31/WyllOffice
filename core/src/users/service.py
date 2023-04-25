@@ -1,20 +1,12 @@
 from database import get_database
 
-from fastapi import Depends
-
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase, AsyncIOMotorCollection
-
 from users.models import CreateUserModel, ReadUserModel
-
-from users.schemas import InsertOneResult
 
 
 async def list_users_service():
     woop_db = await get_database()
-    result = await woop_db.find({"disabled": { "$ne": True }}, {"_id": -1})
+    result = await woop_db.find({"disabled": {"$ne": True}}, {"_id": -1})
     return result
-    
-
 
 
 async def create_user_service(user: CreateUserModel):
@@ -22,9 +14,8 @@ async def create_user_service(user: CreateUserModel):
     result = await woop_db.insert_one(user.dict())
     return {
         "id": result.inserted_id,
-        "acknowledged":result.acknowledged
+        "acknowledged": result.acknowledged
     }
-
 
 
 async def get_user_service(user: ReadUserModel):

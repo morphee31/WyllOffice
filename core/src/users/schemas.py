@@ -1,13 +1,16 @@
-from models import BaseDBModel
 from pydantic import BaseModel, Field
+
+from models import BaseDBModel
 
 
 class Planning(BaseModel):
     day: datetime.date
     period: Literal["am", "pm", "day"]
 
+
 class InsertOneResult(BaseDBModel):
     acknowledged: bool
+
 
 class FindOneResult():
     email: EmailStr = Field(..., description="Email of user")

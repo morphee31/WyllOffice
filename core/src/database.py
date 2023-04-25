@@ -1,7 +1,4 @@
-
-
 from loguru import logger
-
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase, AsyncIOMotorCollection
 
 from config import get_config
@@ -29,6 +26,7 @@ class MongoManager:
 
 
 db = MongoManager()
+
 
 async def get_database() -> AsyncIOMotorCollection:
     return db.db[config.app_name]

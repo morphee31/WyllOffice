@@ -1,16 +1,13 @@
-from fastapi import FastAPI
-
 import uvicorn
+from fastapi import FastAPI
+from loguru import logger
 
 from config import get_config
 from database import db
 from users.router import user_router
 
-from loguru import logger
-
 app = FastAPI()
 app.include_router(user_router)
-
 
 
 @app.on_event("startup")
@@ -35,5 +32,6 @@ async def shutdown():
 async def home():
     return "Welcome on WOOP"
 
-if __name__== "__main__":
+
+if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000)

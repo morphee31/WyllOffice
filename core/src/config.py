@@ -7,7 +7,7 @@ class Config(BaseSettings):
     app_name: str = "MongoDB_API"
     mongo_user: str = None
     mongo_password: SecretStr = None
-    mongo_host: str 
+    mongo_host: str
     mongo_port: int = 27017
     env: str = "dev"
 
