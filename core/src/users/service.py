@@ -6,11 +6,24 @@ from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase, AsyncI
 
 from users.models import CreateUserModel, ReadUserModel
 
+from users.schemas import InsertOneResult
+
+
+async def list_users_service():
+    woop_db = await get_database()
+    result = await woop_db.find({"disabled": { "$ne": True }}, {"_id": -1})
+    return result
+    
+
+
 
 async def create_user_service(user: CreateUserModel):
     woop_db = await get_database()
     result = await woop_db.insert_one(user.dict())
-    return result.inserted_id
+    return {
+        "id": result.inserted_id,
+        "acknowledged":result.acknowledged
+    }
 
 
 

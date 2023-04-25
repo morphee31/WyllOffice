@@ -4,12 +4,12 @@ from models import BaseDBModel
 import datetime
 from typing import Literal
 
+from users.schemas import Planning
 
 
 
-class Planning(BaseModel):
-    day: datetime.date
-    period: Literal["am", "pm", "day"]
+
+
 
 
 class UserModel(BaseDBModel):
