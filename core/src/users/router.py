@@ -33,7 +33,7 @@ async def get_user(user_id: str):
     response_model=list[FindOneResult]
 )
 async def list_user():
-    find_results = list_users_service()
+    find_results = await list_users_service()
     return find_results
 
 
