@@ -1,7 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
-from users.models import CreateUserModel
-from users.service import create_user_service, list_users_service
+from users.models import CreateUserModel, UpdateUserModel
+from users.service import create_user_service, list_users_service, update_user_service
 from users.schemas import InsertOneResult, FindOneResult
 
 from fastapi import FastAPI, Request
@@ -50,12 +50,17 @@ async def list_user(request: Request):
 @user_router.put(
     path="/{user_id}"
 )
-async def update_user(user_id: str):
+async def update_user(user_id:str, user: UpdateUserModel):
+    update_result = await update_user_service(user_id, user)
+    if not update_result:
+        raise HTTPException(status_code=404, detail="User not found")
+    return update_result
     
 
 @user_router.delete(
     path="/{user_id}"
 )
 async def disable_user(user_id: str):
-    # TODO document why this method is empty
-    pass
+    user = UpdateUserModel(disabled=True)
+    update_result = await update_user_service(user_id, user)
+    return update_result

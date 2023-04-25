@@ -9,7 +9,8 @@ class UserModel(BaseDBModel):
 
 
 class CreateUserModel(BaseModel):
-    email: EmailStr
+    user_id: str
+    email: EmailStr = None
     firstname: str
     lastname: str
     planning: None | Planning = Field(default=None, description="Day of presence")
@@ -18,6 +19,7 @@ class CreateUserModel(BaseModel):
 
 
 class ReadUserModel(UserModel):
+    user_id: str
     email: EmailStr = None
     firstname: str = None
     lastname: str = None
@@ -28,6 +30,7 @@ class UpdateUserModel(BaseModel):
     firstname: str = None
     lastname: str = None
     planning: None | Planning = Field(default=None, description="Day of presence")
+    disabled: bool = None
 
 
 class UpdateUserPasswordModel(BaseDBModel):
