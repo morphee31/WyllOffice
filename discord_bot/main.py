@@ -1,5 +1,6 @@
 
 import discord
+import os
 
 
 class MyClient(discord.Client):
@@ -22,4 +23,4 @@ if __name__ == "__main__":
     intents.message_content = True
 
     client = MyClient(intents=intents)
-    client.run('MTA3NDk5MTQ5NTMyMjU0NjE3Ng.GAxS7T.ECoDblEytoUSVk-X-igP9F08bqxw-VEcC5A3X8')
+    client.run("MTA3NDk5MTQ5NTMyMjU0NjE3Ng.GaHmCv.-J-HDactJUv-_nZ4e1pxz-qjCv5z5XaNUis3sI")

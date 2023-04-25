@@ -16,6 +16,14 @@
                 "MONGO_PORT": "27017",
                 "APP_NAME": "woop"
             }
+        }, 
+        {
+            "name": "bot",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/discord_bot/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }

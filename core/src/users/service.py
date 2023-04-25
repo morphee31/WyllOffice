@@ -5,8 +5,10 @@ from users.models import CreateUserModel, ReadUserModel
 
 async def list_users_service():
     woop_db = await get_database()
-    cursor_result = woop_db.find({"disabled": {"$ne": True}}, {"_id": -1})
-    return [result for result in await cursor_result.to_list()]
+    results = list()
+    async for user in woop_db.find({"disabled": {"$ne": True}}, {"_id": False, "planning": False}):
+        results.append(user)
+    return results
 
 
 async def create_user_service(user: CreateUserModel):

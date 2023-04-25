@@ -1,0 +1,22 @@
+{% extends "base.j2" %}
+{% block title %}Liste des utiliseurs{% endblock %}
+{% block content %}
+<table class="table is-striped">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Pr&eacute;nom</th>
+        <th>Nom</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+        <th>{{ user["email"] }}</th>
+        <th>{{ user["firstname"] }}</th>
+        <th>{{ user["lastname"] }}</th>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
