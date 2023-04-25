@@ -12,9 +12,11 @@ class Planning(BaseModel):
 class InsertOneResult(BaseDBModel):
     acknowledged: bool
 
-class FindOneResult(BaseModel):
+class UserResult(BaseModel):
+    user_id: str = Field(..., description="Unique id of user")
     email: EmailStr = Field(..., description="Email of user")
     firstname: str = Field(..., description="Firstname of user")
     lastname: str = Field(..., description="Lastname of user")
     planning: None | Planning = Field(default=None, description="Day of presence")
+    disabled: bool = None 
 

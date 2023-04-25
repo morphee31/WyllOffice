@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from users.models import CreateUserModel, UpdateUserModel
 from users.service import create_user_service, list_users_service, update_user_service
-from users.schemas import InsertOneResult, FindOneResult
+from users.schemas import InsertOneResult, UserResult
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
@@ -23,7 +23,7 @@ user_router = APIRouter(
 
 @user_router.post(
     path="/",
-    response_model=InsertOneResult
+    response_model=UserResult
 )
 async def create_user(user: CreateUserModel):
     result: InsertOneResult = await create_user_service(user)
@@ -48,7 +48,10 @@ async def list_user(request: Request):
 
 
 @user_router.put(
-    path="/{user_id}"
+    path="/{user_id}",
+    response_model=UserResult,
+    response_model_exclude_unset=True,
+    response_model_exclude_none=True
 )
 async def update_user(user_id:str, user: UpdateUserModel):
     update_result = await update_user_service(user_id, user)
@@ -58,7 +61,10 @@ async def update_user(user_id:str, user: UpdateUserModel):
     
 
 @user_router.delete(
-    path="/{user_id}"
+    path="/{user_id}",
+    response_model=UserResult,
+    response_model_exclude_unset=True,
+    response_model_exclude_none=True
 )
 async def disable_user(user_id: str):
     user = UpdateUserModel(disabled=True)
