@@ -19,13 +19,14 @@ user_templates = Jinja2Templates(directory=str(BASE_PATH / "templates"))
 
 
 user_router = APIRouter(
-    prefix="/user"
+    prefix="/user",
+    tags=["user"]
 )
 
 
 @user_router.post(
     path="",
-    response_model=UserResult
+    response_model=InsertOneResult
 )
 async def create_user(user: CreateUserModel):
     result: InsertOneResult = await create_user_service(user)
@@ -79,34 +80,3 @@ async def disable_user(user_id: str):
     return update_result
 
 
-
-@user_router.post(
-    path="/{user_id}/add_date",
-    response_model=UserResult,
-    response_model_exclude_unset=True,
-    response_model_exclude_none=True
-)
-async def add_date(user_id: str, date:Planning):
-    result = await add_date_to_user(user_id, date)
-    return result
-
-
-@user_router.delete(
-    path="/{user_id}/remove_date",
-    response_model=UserResult,
-    response_model_exclude_unset=True,
-    response_model_exclude_none=True
-)
-async def remove_date(user_id: str, date:str):
-    date = datetime.strptime(date, '%d/%m/%Y')
-    result = await remove_date_to_user(user_id, date)
-    return result
-
-
-@user_router.get(
-    path="/by_date"
-)
-async def get_users_by_date(date:str):
-    date = datetime.strptime(date, '%d/%m/%Y')
-    users = await get_users_by_date(date)
-    return users

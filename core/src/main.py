@@ -5,10 +5,11 @@ from loguru import logger
 from config import get_config
 from database import db
 from users.router import user_router
+from planning.router import planning_router
 
 app = FastAPI()
 app.include_router(user_router)
-
+app.include_router(planning_router)
 
 @app.on_event("startup")
 async def startup():
