@@ -39,7 +39,7 @@ async def woop(ctx):
     """List of woop commands
     """
     if ctx.invoked_subcommand is None:
-        await ctx.send(f'No, {ctx.subcommand_passed} is not cool')
+        await ctx.send(f'{ctx.subcommand_passed} is not woop command')
 
 
 @woop.command(name="init")
@@ -101,6 +101,7 @@ async def _add(ctx, date: str, period: str="day"):
     else:
         await ctx.send(f"Ton compte n'existe pas, tu peux le créer avec la commande \"!woop_init <prénom> <nom> <email>\"")
 
+
 @woop.command("rm")
 async def _rm(ctx, date: str):
     """ Supprime reservation : <dd/mm/yyyy>"""
@@ -128,19 +129,23 @@ async def _rm(ctx, date: str):
 
 @woop.command("list")
 async def _list(ctx, date: str):
+    """ Liste les reservations pour une journée donnée : <dd/mm/yyyy> or today"""
     if date == "today":
-        date = datetime.now().strftime("%d-%m-%Y")
+        _date = datetime.now().strftime("%d-%m-%Y")
     elif re.match("^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$", date):
-        date = datetime.strptime(date, "%d/%m/%Y").strftime("%d-%m-%Y")
+        _date = datetime.strptime(date, "%d/%m/%Y").strftime("%d-%m-%Y")
     else:
         await ctx.send(f"{date} : est au mauvais format.")
     response = requests.get(
-        url=f"{API_URL}/planning/{date}"
+        url=f"{API_URL}/planning/{_date}"
         )
     if response.status_code == 200:
         users = list()
         users = [f"{user['firstname'].capitalize()} {user['lastname'].capitalize()}" for user in response.json()]
-        await ctx.send(f"Liste des présents : {', '.join(users)}")
+        if users:
+            await ctx.send(f"Liste des présents pour le {date} : {', '.join(users)}")
+        else:
+            await ctx.send(f"Pas de réservation pour le {date}")
     else:
         await ctx.send(f"Erreur inconnu !")
     
