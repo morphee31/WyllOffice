@@ -129,14 +129,18 @@ async def _rm(ctx, date: str):
 @woop.command("list")
 async def _list(ctx, date: str):
     if date == "today":
-        date = datetime.now().strftime("%d/%m/%Y")
-    elif not re.match("^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$", date):
+        date = datetime.now().strftime("%d-%m-%Y")
+    elif re.match("^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$", date):
+        date = datetime.strptime(date, "%d/%m/%Y").strftime("%d-%m-%Y")
+    else:
         await ctx.send(f"{date} : est au mauvais format.")
     response = requests.get(
-        url=f"{API_URL}/user"
+        url=f"{API_URL}/planning/{date}"
         )
     if response.status_code == 200:
-        await ctx.send(f"Liste des présents : ")
+        users = list()
+        users = [f"{user['firstname'].capitalize()} {user['lastname'].capitalize()}" for user in response.json()]
+        await ctx.send(f"Liste des présents : {', '.join(users)}")
     else:
         await ctx.send(f"Erreur inconnu !")
     
