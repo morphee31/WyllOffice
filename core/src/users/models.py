@@ -5,7 +5,7 @@ from users.schemas import Planning
 
 
 class UserModel(BaseDBModel):
-    planning: None | Planning = Field(default=None, description="Day of presence")
+    planning: None | Planning = Field(default=list(), description="Day of presence")
 
 
 class CreateUserModel(BaseModel):
@@ -13,7 +13,7 @@ class CreateUserModel(BaseModel):
     email: EmailStr = None
     firstname: str
     lastname: str
-    planning: None | Planning = Field(default=None, description="Day of presence")
+    planning: list | list[Planning] = Field(default=list(), description="List of presence day")
 
     # password: SecretStr
 
@@ -29,7 +29,7 @@ class UpdateUserModel(BaseModel):
     email: EmailStr = None
     firstname: str = None
     lastname: str = None
-    planning: None | Planning = Field(default=None, description="Day of presence")
+    planning: list | list[Planning] = Field(default=list(), description="List of presence day")
     disabled: bool = None
 
 
