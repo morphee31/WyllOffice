@@ -55,4 +55,4 @@ async def remove_date(user_id: str, date:str):
 async def list_users_by_date(date:str):
     date = datetime.strptime(date, '%d-%m-%Y')
     users = await get_users_by_date(date)
-    return {"date": date}
+    return users

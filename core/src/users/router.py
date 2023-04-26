@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from users.models import CreateUserModel, UpdateUserModel
 from users.service import create_user_service, list_users_service, update_user_service, get_user_service, add_date_to_user, remove_date_to_user, get_users_by_date
-from users.schemas import InsertOneResult, UserResult
+from users.schemas import InsertOneResult, UserResult, UsersResult
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
