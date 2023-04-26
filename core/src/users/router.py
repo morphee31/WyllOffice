@@ -42,18 +42,19 @@ async def create_user(user: CreateUserModel):
 )
 async def get_user(user_id: str):
     find_result = await get_user_service(user_id)
+    if find_result == None:
+        raise HTTPException(status_code=404, detail="User not founded")
     return find_result
 
 
 
 @user_router.get(
     path="",
-    response_class=HTMLResponse
+    response_model=list[UsersResult]
 )
-async def list_user(request: Request):
+async def get_users(request: Request):
     find_results = await list_users_service()
-    return user_templates.TemplateResponse("users_list.j2", {"request": request, "users" : find_results})
-
+    return find_results
 
 @user_router.put(
     path="/{user_id}",

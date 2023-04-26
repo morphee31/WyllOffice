@@ -7,6 +7,24 @@ from database import db
 from users.router import user_router
 from planning.router import planning_router
 
+from fastapi import APIRouter, HTTPException
+
+from users.models import CreateUserModel, UpdateUserModel
+from users.service import create_user_service, list_users_service, update_user_service, get_user_service, add_date_to_user, remove_date_to_user, get_users_by_date
+from users.schemas import InsertOneResult, UserResult
+
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from pathlib import Path
+from users.schemas import Planning
+
+from datetime import datetime
+
+BASE_PATH = Path(__file__).resolve().parent
+user_templates = Jinja2Templates(directory=str(BASE_PATH / "templates"))
+
 app = FastAPI()
 app.include_router(user_router)
 app.include_router(planning_router)
@@ -32,6 +50,14 @@ async def shutdown():
 )
 async def home():
     return "Welcome on WOOP"
+
+@app.get(
+    path="",
+    response_class=HTMLResponse
+)
+async def list_users(request: Request):
+    find_results = await list_users_service()
+    return user_templates.TemplateResponse("users_list.j2", {"request": request, "users" : find_results})
 
 
 if __name__ == "__main__":

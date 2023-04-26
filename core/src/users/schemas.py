@@ -15,13 +15,15 @@ class Planning(BaseModel):
 class InsertOneResult(BaseDBModel):
     acknowledged: bool
 
-class UserResult(BaseModel):
+class UsersResult(BaseModel):
     user_id: str = Field(..., description="Unique id of user")
     email: EmailStr = Field(..., description="Email of user")
     firstname: str = Field(..., description="Firstname of user")
     lastname: str = Field(..., description="Lastname of user")
-    planning: list | list[Planning] = Field(default=list(), description="List of presence day")
     disabled: bool  = None 
+
+class UserResult(UsersResult):
+    planning: list | list[Planning] = Field(default=list(), description="List of presence day")
 
 
 
