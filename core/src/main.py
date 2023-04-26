@@ -52,7 +52,7 @@ async def home():
     return "Welcome on WOOP"
 
 @app.get(
-    path="",
+    path="/list",
     response_class=HTMLResponse
 )
 async def list_users(request: Request):
