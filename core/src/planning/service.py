@@ -14,7 +14,7 @@ from datetime import datetime
 async def get_users_by_date(date:datetime):
     woop_db = await get_database()
     results = list()
-    async for user in woop_db.find({ "disabled": {"$ne": True},"planning.day":{ "$all": [date] }}, {"_id": False, "firstname":True, "lastname": True}):
+    async for user in woop_db.find({ "disabled": {"$ne": True},"planning.day":{ "$all": [date] }}, {"_id": False, "user_id": True, "firstname":True, "lastname": True}):
         results.append(PlanningResult(**user))
     return results
 
